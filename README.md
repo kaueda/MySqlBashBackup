@@ -7,7 +7,7 @@ A bash script for automatically creating a mysql backup with rar compression.
 1. [Table schemas-info structure (!IMPORTANT)](#table-schemas-info-structure)
 1. [Compression method](#compression-method)
 1. [Dependencies](#dependencies)
-1. [How to make it work daily/hourly in a linux server](#how-to-make-it-work-daily-hourly-in-a-linux-server)
+1. [How to make it work daily/hourly in a linux server](#how-to-make-it-work-dailyhourly-in-a-linux-server)
 
 ## A little bit more than that
 Besides the script-backup.sh I made a run-backup.py script to get from a mysql
@@ -89,10 +89,15 @@ This is the avaliation version, you shloud buy it or change the compression meth
 	python /home/$USER/scripts/run-backup.py <host> <username> <password> <database-with-schemas-info>
 ```
 Remember to input with your own data (fields with <>)
-2. Mova este arquivo para /etc/cron.daily ou para /etc/cron.hourly dependendo do que você quer.
-Move this newly created file to /etc/cron.daily or /etc/cron.hourly depending on what you want.
+
+2. Move this newly created file to /etc/cron.daily or /etc/cron.hourly depending on what you want.
+
 3. Give this file the permission chmod 755 eg.: `chmod 755 mybackup-daily`
+
 4. Verify that you created the scripts folder for the current user or just change the snipet in item 1 to
+
 access the folder in which you saved the scripts (run-backup.py and script-backup.sh).
-5. If needed change the permissions for script-backup.sh : `chmod 777 script-backup.sh`
+
+5. If needed, change the permissions for script-backup.sh : `chmod 777 script-backup.sh`
+
 6. That's it. You should have the backups being made every day/hour from now on.
