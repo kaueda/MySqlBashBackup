@@ -84,8 +84,8 @@ This is the avaliation version, you shloud buy it or change the compression meth
 ## How to make it work daily/hourly in a linux server
 
 1. Create a bash script with no extension (no .sh) and containing this:
-	#!/bin/bash
-	python /home/$USER/scripts/run-backup.py <host> <username> <password> <database-with-schemas-info>
+    #!/bin/bash
+    python /home/$USER/scripts/run-backup.py <host> <username> <password> <database-with-schemas-info>
 Remember to input with your own data (fields with <>)
 
 2. Move this newly created file to /etc/cron.daily or /etc/cron.hourly depending on what you want.
