@@ -1,11 +1,13 @@
 # MySqlBashBackup
 A bash script for automatically creating a mysql backup with rar compression.
 
+
 ## Contents
 1. [A little bit more than that](#a-little-bit-more-than-that)
-1. [Table schemas-info structure](#table-schemas-info-structure)
+1. [Table schemas-info structure (!IMPORTANT)](#table-schemas-info-structure)
 1. [Compression method](#compression-method)
 1. [Dependencies](#dependencies)
+1. [How to make it work daily/hourly in a linux server](#how-to-make-it-work-daily-hourly-in-a-linux-server)
 
 ## A little bit more than that
 Besides the script-backup.sh I made a run-backup.py script to get from a mysql
@@ -26,6 +28,7 @@ backupfolder="/home/$USER/backups/$(date +'%Y.%m.%d.%H')"
 ```
 If you want more information about the date format you can visit [here](http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/)
 
+
 ## Table schemas-info structure
 You need a table called "schemas-info" in one of your databases if you want 
 the run-backup.py script to work (this exact table)
@@ -34,7 +37,7 @@ id | database_name |             user_name              |        password
 ---|---------------|------------------------------------|-----------------------|
 1  | your database | user allowed to change the database| password for the user |
 
-If you're not sure how to do this you can have this:
+If you're not sure how to do this you can use this:
 ```sql
 CREATE SCHEMA IF NOT EXISTS `dbschema_info` DEFAULT CHARACTER SET utf8 ;
 
@@ -49,6 +52,7 @@ CREATE TABLE `schemas-info` (
 
 INSERT INTO `schemas-info` (`schema_name`, `username`, `password`) VALUES ('mydb-exemple','myroot','mypass');
 ```
+
 
 ## Compression method
 In this script I optioned for the .rar compression, but it's not a free
@@ -75,3 +79,20 @@ You will need:
 This is the avaliation version, you shloud buy it or change the compression method : `sudo apt-get install rar`
 3. python 2.7 (comes with most linux distros) : `sudo apt-get install python2.7`
 4. MySQLdb python package python-mysqldb : `sudo apt-get install python-mysqldb`
+
+
+## How to make it work daily/hourly in a linux server
+
+1. Create a bash script with no extension (no .sh) and containing this:
+```bash
+	#!/bin/bash
+	python /home/$USER/scripts/run-backup.py <host> <username> <password> <database-with-schemas-info>
+```
+Remember to input with your own data (fields with <>)
+2. Mova este arquivo para /etc/cron.daily ou para /etc/cron.hourly dependendo do que você quer.
+Move this newly created file to /etc/cron.daily or /etc/cron.hourly depending on what you want.
+3. Give this file the permission chmod 755 eg.: `chmod 755 mybackup-daily`
+4. Verify that you created the scripts folder for the current user or just change the snipet in item 1 to
+access the folder in which you saved the scripts (run-backup.py and script-backup.sh).
+5. If needed change the permissions for script-backup.sh : `chmod 777 script-backup.sh`
+6. That's it. You should have the backups being made every day/hour from now on.
