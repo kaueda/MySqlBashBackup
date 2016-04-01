@@ -84,10 +84,8 @@ This is the avaliation version, you shloud buy it or change the compression meth
 ## How to make it work daily/hourly in a linux server
 
 1. Create a bash script with no extension (no .sh) and containing this:
-```bash
 	#!/bin/bash
 	python /home/$USER/scripts/run-backup.py <host> <username> <password> <database-with-schemas-info>
-```
 Remember to input with your own data (fields with <>)
 
 2. Move this newly created file to /etc/cron.daily or /etc/cron.hourly depending on what you want.
@@ -95,7 +93,6 @@ Remember to input with your own data (fields with <>)
 3. Give this file the permission chmod 755 eg.: `chmod 755 mybackup-daily`
 
 4. Verify that you created the scripts folder for the current user or just change the snipet in item 1 to
-
 access the folder in which you saved the scripts (run-backup.py and script-backup.sh).
 
 5. If needed, change the permissions for script-backup.sh : `chmod 777 script-backup.sh`
